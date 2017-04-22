@@ -1,20 +1,26 @@
-console.log("SSSSS");
-function loadXMLDoc(){
-  var xmlhttp;
-  if(window.XMLHttpRequest)
-  { // code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp = new XMLHttpRequest();
+function ajax(opts){
+  var defaults = {
+    method: 'GET',
+    url: '',
+    success: function() {},
+    error: function() {},
+  };
+  for(var key in opts){
+    defaults[key] = opts[key];
   }
-  else
-  {// code for IE6, IE5
-    xmlhttp = new ActiveXOject("Microsoft.XMLHTTP");
+
+  //if window.XMLHttpRequest  code for IE7+, Firefox, Chrome, Opera, Safari
+  //else if code for IE6, IE5
+  var oXhr = window.XMLHttpRequest ? new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+  oXhr.open(defaults.method ,defaults.url, true);
+  oXhr.send();
+  oXhr.onreadystatechange=function()
+  {
+    if (oXhr.readyState==4 && oXhr.status==200){
+      defaults.success.call(oXhr,oXhr.responseText);
+    }
+    else{
+      defaults.error();
+    }
   }
-  xmlhttp.onreadystatechange=function(){
-    if (xmlhttp.readyState==4 && xmlhttp.status==200)
-   {
-   document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-   }
-  }
-  xmlhttp.open("GET","test1.txt",true);
-  xmlhttp.send();
 }

@@ -8,7 +8,18 @@
 </head>
 <body>
   <div id="myDiv"><h2>Let AJAX change this text</h2></div>
-  <button type="button" onclick="loadXMLDoc()">通过 AJAX 改变内容</button>
+  <button type="button" onclick="ask()">click</button>
 </body>
   <script src="ajax.js"></script>
+  <script>
+  function ask(){
+    ajax({
+      url: 'text.txt',
+      success: function(data){
+        console.log(data);
+      }
+    });
+  }
+
+  </script>
 </html>
