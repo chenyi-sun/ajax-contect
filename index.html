@@ -16,7 +16,11 @@
     ajax({
       method: 'POST',
       url: 'all.php',
-      data: 'id=all',
+      data: {
+        "id": "ddd",
+        "dddd": "kkksks",
+        "jsjsj": "kkkkkkkkssssss",
+      },
       success: function(data){
         console.log(data);
       }
