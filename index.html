@@ -14,12 +14,14 @@
   <script>
   function ask(){
     ajax({
-      url: 'text.txt',
+      method: 'POST',
+      url: 'all.php',
+      data: 'id=all',
       success: function(data){
         console.log(data);
       }
     });
-  }
+    }
 
   </script>
 </html>
