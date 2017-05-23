@@ -13,17 +13,17 @@ var ajaxs = function(){
     if(parameters.type =="GET"){
        parameters.newUrl = parameters.url+'?';
         for(var item in parameters.datas){
-          parameters.newUrl += item +'='+ parameters.datas[item]+'&' 
+          parameters.newUrl += item +'='+ parameters.datas[item]+'&'
         }
         parameters.newMessage = null;
     }
     else{
       parameters.newUrl = parameters.url;
        for(var item in parameters.datas){
-           parameters.newMessage += item +'='+ parameters.datas[item]+'&' 
+           parameters.newMessage += item +'='+ parameters.datas[item]+'&'
         }
     }
-   
+
     var xmlhttp;
     if (window.XMLHttpRequest)
       {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -36,15 +36,20 @@ var ajaxs = function(){
       xmlhttp.open(parameters.type,parameters.newUrl,parameters.async);
       xmlhttp.send(parameters.newMessage);
       xmlhttp.onreadystatechange=function() {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        if (xmlhttp.readyState == 4 && xmlhttp.status==200)
         {
           parameters.success(xmlhttp.responseText);
         }
-        else{
+        else if(xmlhttp.readyState ==4 && xmlhttp.status == 404){
           parameters.error(xmlhttp.responseText);
+          conosle.log('请求失败(from ajax)');
+        }
+        else if(xmlhttp.readyState ==4){
+          parameters.error(xmlhttp.responseText);
+          console.log('其他未知错误');
         }
       }
-      
+
   }
   return ajax;
 }
